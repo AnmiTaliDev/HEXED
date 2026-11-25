@@ -23,10 +23,8 @@ void editor_init(HexEditor *ed) {
 }
 
 void editor_free(HexEditor *ed) {
-    if (ed->edits.entries) {
-        free(ed->edits.entries);
-        ed->edits.entries = NULL;
-    }
+    free(ed->edits.entries);
+    ed->edits.entries = NULL;
 }
 
 static void ensure_view(HexEditor *ed) {
@@ -92,7 +90,6 @@ static void edit_set_byte(HexEditor *ed, long offset, unsigned char new_val) {
     int i;
     unsigned char old_val = 0;
 
-    /* Check existing edit */
     for (i = 0; i < ed->edits.count; i++) {
         if (ed->edits.entries[i].offset == offset) {
             ed->edits.entries[i].new_val = new_val;
@@ -101,7 +98,6 @@ static void edit_set_byte(HexEditor *ed, long offset, unsigned char new_val) {
         }
     }
 
-    /* Add new edit entry */
     if (ed->edits.count >= ed->edits.capacity) {
         int new_cap = ed->edits.capacity == 0 ? 16 : ed->edits.capacity * 2;
         EditEntry *new_entries = (EditEntry *)realloc(ed->edits.entries,
@@ -151,12 +147,6 @@ void editor_input_ascii(HexEditor *ed, int ch) {
 void editor_toggle_mode(HexEditor *ed) {
     ed->edit_mode  = (ed->edit_mode == MODE_HEX) ? MODE_ASCII : MODE_HEX;
     ed->hex_nibble = 0;
-}
-
-int editor_get_byte_at(HexEditor *ed, long offset, unsigned char *out) {
-    if (offset < 0 || offset >= ed->file_size) return 0;
-    *out = file_get_byte(ed, offset);
-    return 1;
 }
 
 int editor_is_modified_at(HexEditor *ed, long offset) {

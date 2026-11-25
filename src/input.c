@@ -12,7 +12,6 @@ int input_get_key(void) {
     memset(&r, 0, sizeof(r));
     r.h.ah = 0x00;
     __dpmi_int(0x16, &r);
-    /* Read AL and AH directly to avoid packing issues */
     if (r.h.al == 0x00 || r.h.al == 0xE0) {
         switch (r.h.ah) {
             case 0x48: return KEY_UP;
@@ -38,7 +37,6 @@ int input_get_key(void) {
 }
 
 #else
-/* Turbo C / BIOS */
 #include <dos.h>
 #include <conio.h>
 

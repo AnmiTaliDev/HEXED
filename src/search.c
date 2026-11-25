@@ -4,15 +4,12 @@
 #include <string.h>
 #include "search.h"
 #include "fileio.h"
-#include "editor.h"
 
 static int match_at(HexEditor *ed, long offset) {
     int i;
-    unsigned char b;
     if (offset + ed->search.pattern_len > ed->file_size) return 0;
     for (i = 0; i < ed->search.pattern_len; i++) {
-        if (!editor_get_byte_at(ed, offset + i, &b)) return 0;
-        if (b != ed->search.pattern[i]) return 0;
+        if (file_get_byte(ed, offset + i) != ed->search.pattern[i]) return 0;
     }
     return 1;
 }

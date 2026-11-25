@@ -30,15 +30,12 @@ int file_open(HexEditor *ed, const char *filename) {
 }
 
 void file_close(HexEditor *ed) {
-    if (ed->fp) {
-        fclose(ed->fp);
-        ed->fp = NULL;
-    }
+    fclose(ed->fp);
+    ed->fp = NULL;
 }
 
 int file_read_chunk(HexEditor *ed, long offset, unsigned char *buf, int len) {
     int actually;
-    if (!ed->fp || offset >= ed->file_size) return 0;
     fseek(ed->fp, offset, SEEK_SET);
     actually = (int)fread(buf, 1, len, ed->fp);
     return actually;

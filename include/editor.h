@@ -17,7 +17,6 @@ void editor_end(HexEditor *ed);
 void editor_input_hex(HexEditor *ed, int ch);
 void editor_input_ascii(HexEditor *ed, int ch);
 void editor_toggle_mode(HexEditor *ed);
-int  editor_get_byte_at(HexEditor *ed, long offset, unsigned char *out);
 int  editor_is_modified_at(HexEditor *ed, long offset);
 
 #endif
