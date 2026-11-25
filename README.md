@@ -1,20 +1,22 @@
 # HEXED
 
-Full-screen interactive hex editor for FreeDOS and MS-DOS 5.0+.
+Full-screen hex editor for FreeDOS and MS-DOS, running in VGA 80x25 text mode.
 
-Runs in VGA text mode 80x25. Opens any binary or text file, displays contents as hex + ASCII, allows editing individual bytes, and saves changes back to disk.
+## Dependencies
 
-## Requirements
+Build:
+
+- DJGPP cross-compiler (`i586-pc-msdosdjgpp-gcc`) on Linux
+- Make
+
+Runtime:
 
 - FreeDOS, MS-DOS 5.0+, DOSBox, or DOSBox-X
-- CWSDPMI.EXE (DPMI host, required for DJGPP runtime)
+- `CWSDPMI.EXE` (DPMI host required by the DJGPP runtime)
 
-## Building
-
-Requires the DJGPP cross-compiler on Linux.
+## Build
 
 ```sh
-# Build
 make
 ```
 
@@ -25,8 +27,10 @@ Output: `HEXED.EXE`
 Download `CWSDPMI.EXE` from [sandmann.dotster.com](https://sandmann.dotster.com/cwsdpmi/) and place it in the same directory as `HEXED.EXE`.
 
 ```
-HEXED.EXE
+HEXED.EXE [file]
 ```
+
+Without an argument, the editor asks for a filename.
 
 ## Keybindings
 
@@ -49,4 +53,4 @@ In hex mode, type two hex digits (0-9, A-F) to overwrite the current byte. In AS
 
 ## License
 
-GNU General Public License v3.0 — see [LICENSE](LICENSE).
+GNU General Public License v3.0, see [LICENSE](LICENSE).
